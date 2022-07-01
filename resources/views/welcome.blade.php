@@ -111,6 +111,9 @@
                                 <b>Categories <span class="text text-primary"> > </span> * </b>
                             </label>
                             <select class="form-control categories" id="cat-0">
+                                <option value="">
+                                    Choose ..
+                                </option>
                                 @foreach(\App\Models\Category::all() as $category)
                                     <option value="{{$category->id}}">
                                         {{$category->name}}
@@ -171,7 +174,10 @@
             }
 
             $('.categories').on('change', function () {
-                appendContent($(this).val())
+                if($(this).val() !== "")
+                {
+                    appendContent($(this).val())
+                }
             })
 
             function appendContent(categoryId) {
@@ -188,6 +194,7 @@
                             newCategory+='<div class="form-group"><label for="cat-'+categoryId+'">'
                             newCategory+='<b>' + data.category_name +'<span class="text text-primary"> > </span> * </b>'
                             newCategory+='</label><select class="form-control categories" id="cat-'+categoryId+'">'
+                            newCategory+='<option value="">Choose ..</option>'
                             $.each(data.data, function (index, value) {
                                 newCategory+='<option value="'+value.id+'">'
                                 newCategory+=value.name
